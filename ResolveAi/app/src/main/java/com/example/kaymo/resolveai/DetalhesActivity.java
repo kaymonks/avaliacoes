@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orm.SugarRecord;
+
 public class DetalhesActivity extends AppCompatActivity {
 
     String categoria, descricao, icon;
@@ -19,7 +21,8 @@ public class DetalhesActivity extends AppCompatActivity {
     TextView tvIcon;
 
     FloatingActionButton  btCurtir, btNaoCurtir;
-    int id, qtdCurtir, qtdNaoCurtir;
+    int qtdCurtir, qtdNaoCurtir;
+    Long id;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -36,7 +39,7 @@ public class DetalhesActivity extends AppCompatActivity {
         icon = getIntent().getExtras().getString("icon");
         categoria = getIntent().getExtras().getString("categoria");
         descricao = getIntent().getExtras().getString("descricao");
-        id = getIntent().getExtras().getInt("id", -1);
+        id = getIntent().getExtras().getLong("id", -1);
         qtdCurtir = getIntent().getExtras().getInt("curtir", -1);
         qtdNaoCurtir = getIntent().getExtras().getInt("naoCurtir", -1);
 
@@ -47,19 +50,13 @@ public class DetalhesActivity extends AppCompatActivity {
         btCurtir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            qtdCurtir += 1;
-            Reclamacao reclamacao = new Reclamacao();
-            ReclamacaoDAO reclamacaoDAO = new ReclamacaoDAO(getBaseContext());
-            reclamacao.setId(id);
-            reclamacao.setCategoria(categoria);
-            reclamacao.setDescricao(descricao);
-            reclamacao.setCurtir(qtdCurtir);
-            reclamacao.setNaoCurtir(qtdNaoCurtir);
 
-            reclamacaoDAO.updateReclamacao(reclamacao);
+                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
+                reclamacao.setCurtir();
+                reclamacao.save();
 
-            Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -67,20 +64,13 @@ public class DetalhesActivity extends AppCompatActivity {
         btNaoCurtir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                qtdNaoCurtir += 1;
-                Reclamacao reclamacao = new Reclamacao();
-                ReclamacaoDAO reclamacaoDAO = new ReclamacaoDAO(getBaseContext());
-                reclamacao.setId(id);
-                reclamacao.setCategoria(categoria);
-                reclamacao.setDescricao(descricao);
-                reclamacao.setCurtir(qtdCurtir);
-                reclamacao.setNaoCurtir(qtdNaoCurtir);
-                Log.d(String.valueOf(this), "onCreate2: "+reclamacao.getNaoCurtir());
-                reclamacaoDAO.updateReclamacao(reclamacao);
+
+                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
+                reclamacao.setNaoCurtir();
+                reclamacao.save();
 
                 Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
                 startActivity(intent);
-
             }
         });
 

@@ -1,13 +1,16 @@
 package com.example.kaymo.resolveai;
 
+import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
+
 import java.util.ArrayList;
 
 /**
  * Created by kaymo on 28/04/2018.
  */
 
-public class Reclamacao extends ArrayList<Reclamacao> {
-    private int id;
+public class Reclamacao extends SugarRecord {
+    private Long id;
     private String categoria;
     private String descricao;
     private int curtir;
@@ -22,9 +25,8 @@ public class Reclamacao extends ArrayList<Reclamacao> {
         this.categoria = categoria;
         this.descricao = descricao;
         this.curtir = curtir;
-        if (naoCurtir != -1) {
-            this.naoCurtir = naoCurtir;
-        }
+        this.naoCurtir = naoCurtir;
+
     }
 
     public Reclamacao(String categoria, String descricao, String curtir) {
@@ -37,16 +39,8 @@ public class Reclamacao extends ArrayList<Reclamacao> {
 
     }
 
-    public void addCurtir() {
-        this.curtir = curtir + 1;
-    }
-
     public String getCategoria() {
         return categoria;
-    }
-
-    public void setTitulo(String categoria) {
-        this.categoria = categoria;
     }
 
     public String getDescricao() {
@@ -55,21 +49,23 @@ public class Reclamacao extends ArrayList<Reclamacao> {
 
     public int getCurtir() { return curtir; }
 
-    public void setCurtir(int curtir) { this.curtir = this.curtir + curtir; }
+    public void setCurtir() { this.curtir = this.curtir + 1; }
 
     public int getNaoCurtir() { return naoCurtir; }
 
-    public void setNaoCurtir(int naoCurtir) { this.naoCurtir = naoCurtir; }
+    public void setNaoCurtir() { this.naoCurtir = + 1; }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+//
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+
+    public void setId(Long id) {
         this.id = id;
     }
 

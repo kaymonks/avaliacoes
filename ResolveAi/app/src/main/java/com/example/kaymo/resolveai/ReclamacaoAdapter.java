@@ -10,16 +10,19 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by kaymo on 28/04/2018.
  */
 
 class ReclamacaoAdapter extends RecyclerView.Adapter {
-    private ArrayList<Reclamacao> listaReclamacao;
+    private List<Reclamacao> listaReclamacao;
     private Context context;
 
-    public ReclamacaoAdapter(Context context, ArrayList<Reclamacao> listaReclamacao) {
+    public ReclamacaoAdapter(Context context, List<Reclamacao> listaReclamacao) {
         this.listaReclamacao = listaReclamacao;
         this.context = context;
     }
@@ -39,15 +42,13 @@ class ReclamacaoAdapter extends RecyclerView.Adapter {
         gaveta.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(context, DetalhesActivity.class);
                 intent.putExtra("id", daVez.getId());
                 intent.putExtra("icon", gaveta.tvIcon.getText().toString());
                 intent.putExtra("descricao", daVez.getDescricao());
                 intent.putExtra("categoria", daVez.getCategoria());
-                intent.putExtra("curtir", daVez.getCurtir());
-                intent.putExtra("naoCurtir", daVez.getNaoCurtir());
-
+                intent.putExtra("curtir", String.valueOf(daVez.getCurtir()));
+                intent.putExtra("naoCurtir", String.valueOf(daVez.getNaoCurtir()));
                 context.startActivity(intent);
             }
         });

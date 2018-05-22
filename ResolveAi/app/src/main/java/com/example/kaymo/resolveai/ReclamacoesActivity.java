@@ -7,7 +7,16 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+
+import com.orm.SugarContext;
+import com.orm.query.Select;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class ReclamacoesActivity extends AppCompatActivity {
 
@@ -20,10 +29,9 @@ public class ReclamacoesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reclamacoes);
 
         RecyclerView rvLista = findViewById(R.id.rvLista);
-        ReclamacaoDAO reclamacaoDAO = new ReclamacaoDAO(this);
-
-
-        adaptador = new ReclamacaoAdapter (ReclamacoesActivity.this, reclamacaoDAO.getAllReclamacao());
+        SugarContext.init( this );
+        List<Reclamacao> reclamacoes = (List<Reclamacao>) Select.from(Reclamacao.class).orderBy("curtir Desc").list();
+        adaptador = new ReclamacaoAdapter (ReclamacoesActivity.this, reclamacoes);
         rvLista.setAdapter(adaptador);
 
         rvLista.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));

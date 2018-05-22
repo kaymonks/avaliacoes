@@ -18,7 +18,7 @@ import static android.support.constraint.Constraints.TAG;
 
 class ReclamacaoHolder extends RecyclerView.ViewHolder {
 
-    private ImageView ivCategoria;
+
     private TextView tvDescricao, tvCategoria, tvUp, tvDown;
     public TextView tvIcon;
 
@@ -27,7 +27,6 @@ class ReclamacaoHolder extends RecyclerView.ViewHolder {
         tvIcon = itemView.findViewById(R.id.tvIcon);
         tvCategoria = itemView.findViewById(R.id.tvCategoria);
         tvDescricao = itemView.findViewById(R.id.tvDescricao);
-//        ivCategoria = itemView.findViewById(R.id.ivCategoria);
         tvUp = itemView.findViewById(R.id.tvUp);
         tvDown = itemView.findViewById(R.id.tvDown);
     }

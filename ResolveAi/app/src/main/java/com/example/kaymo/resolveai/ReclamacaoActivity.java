@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.orm.SugarContext;
 
 public class ReclamacaoActivity extends AppCompatActivity {
 
@@ -19,20 +22,18 @@ public class ReclamacaoActivity extends AppCompatActivity {
     String descricao;
     Button salvar;
     int checkedRadioButtonId;
-    private ReclamacaoDAO bd;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reclamacao);
-
-
+        SugarContext.init( this );
         salvar = findViewById(R.id.btSalvar);
         salvar.setOnClickListener(new View.OnClickListener() {
+            public static final String TAG = "tag";
+
             @Override
             public void onClick(View view) {
-                bd = new ReclamacaoDAO(getBaseContext());
                 final EditText etDescricao = findViewById(R.id.etDescricao);
 
                 categoriaGroup = ( RadioGroup ) findViewById(R.id.rgCategoria);
@@ -52,10 +53,11 @@ public class ReclamacaoActivity extends AppCompatActivity {
                 categoria = (String) button.getText();
                 descricao = etDescricao.getText().toString();
 
-                Reclamacao reclamacao = new Reclamacao();
-                reclamacao.setCategoria(categoria);
-                reclamacao.setDescricao(descricao);
-                bd.addReclamacao(reclamacao);
+                Log.d(TAG, "onClick: "+categoria + descricao);
+
+                Reclamacao reclamacao = new Reclamacao(categoria, descricao, 0, 0);
+
+                reclamacao.save();
 
                 sair();
             }
