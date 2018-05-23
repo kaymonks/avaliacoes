@@ -69,40 +69,40 @@ public class ReclamacaoActivity extends AppCompatActivity {
 
 //                Log.d(TAG, "onClick: "+categoria + descricao);
 
-                StringRequest request = new StringRequest(
-                        Request.Method.POST,
-                        URL,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Toast.makeText(getApplication(), "Problema adicionado com sucesso", Toast.LENGTH_LONG).show();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(ReclamacaoActivity.this, error+"", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                ){
-                  @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                      Map<String, String> params = new HashMap<String, String>();
-                      params.put("categoria", categoria);
-                      params.put("descricao", descricao);
-                      params.put("curtir", "0");
-                      params.put("naocurtir", "0");
-                      return params;
-                  }
-                };
-
-                RequestQueue requestQueue = Volley.newRequestQueue(ReclamacaoActivity.this);
-                requestQueue.add(request);
-
-
-//                Reclamacao reclamacao = new Reclamacao(categoria, descricao, 0, 0);
+//                StringRequest request = new StringRequest(
+//                        Request.Method.POST,
+//                        URL,
+//                        new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                Toast.makeText(getApplication(), "Problema adicionado com sucesso", Toast.LENGTH_LONG).show();
+//                            }
+//                        },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//                                Toast.makeText(ReclamacaoActivity.this, error+"", Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+//                ){
+//                  @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                      Map<String, String> params = new HashMap<String, String>();
+//                      params.put("categoria", categoria);
+//                      params.put("descricao", descricao);
+//                      params.put("curtir", "0");
+//                      params.put("naocurtir", "0");
+//                      return params;
+//                  }
+//                };
 //
-//                reclamacao.save();
+//                RequestQueue requestQueue = Volley.newRequestQueue(ReclamacaoActivity.this);
+//                requestQueue.add(request);
+
+
+                Reclamacao reclamacao = new Reclamacao(categoria, descricao, 0, 0);
+
+                reclamacao.save();
 
                 sair();
             }

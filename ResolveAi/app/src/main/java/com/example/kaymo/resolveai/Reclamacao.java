@@ -60,7 +60,7 @@ public class Reclamacao extends SugarRecord {
 
     public int getNaoCurtir() { return naocurtir; }
 
-    public void setNaoCurtir() { this.naocurtir = + 1; }
+    public void setNaoCurtir(int qtdNaoCurtir) { this.naocurtir = qtdNaoCurtir; }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;

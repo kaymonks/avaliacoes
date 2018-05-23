@@ -36,6 +36,7 @@ public class ReclamacoesActivity extends AppCompatActivity {
     private final int ADICIONAR_RECLAMACAO_CODE = 1;
     private Gson gson;
     ReclamacaoAdapter adaptador;
+    ConexaoInternet conexaoInternet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,30 +47,38 @@ public class ReclamacoesActivity extends AppCompatActivity {
         String URL = "http://192.168.15.14:8080/api/reclamations";
         final RecyclerView rvLista = findViewById(R.id.rvLista);
         SugarContext.init( this );
+        conexaoInternet = new ConexaoInternet(this);
+        if (conexaoInternet.estaConectado()) {
 
-        StringRequest request = new StringRequest(
-            URL,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.d("TAG", response);
-                    GsonBuilder builder = new GsonBuilder();
-                    Gson gson = builder.create();
-                    List<Reclamacao> reclamacoes = Arrays.asList(gson.fromJson(response, Reclamacao[].class));
-                    adaptador = new ReclamacaoAdapter (ReclamacoesActivity.this, reclamacoes);
-                    rvLista.setAdapter(adaptador);
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(ReclamacoesActivity.this, "Alguma coisa deu errado"+error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        );
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+            StringRequest request = new StringRequest(
+                    URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+//                            Log.d("TAG", response);
+                            GsonBuilder builder = new GsonBuilder();
+                            Gson gson = builder.create();
+                            List<Reclamacao> reclamacoes = Arrays.asList(gson.fromJson(response, Reclamacao[].class));
+                            adaptador = new ReclamacaoAdapter(ReclamacoesActivity.this, reclamacoes);
+                            rvLista.setAdapter(adaptador);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("TAG", error.getMessage());
+                            Toast.makeText(ReclamacoesActivity.this, "Alguma coisa deu errado" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            );
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(request);
+        } else {
+//            List<Reclamacao> reclamacoes = Reclamacao.listAll(Reclamacao.class);
+            List<Reclamacao> reclamacoes = Reclamacao.findWithQuery(Reclamacao.class, "SELECT * FROM reclamacoes ORDER BY curtir DESC, naocurtir ASC");
+            adaptador = new ReclamacaoAdapter(ReclamacoesActivity.this, reclamacoes);
+            rvLista.setAdapter(adaptador);
+        }
 
         rvLista.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
 

@@ -27,9 +27,9 @@ import java.util.Map;
 public class DetalhesActivity extends AppCompatActivity {
 
     String categoria, descricao, icon;
-    TextView tvDescricao, tvCategoria, tvCurtidas, tvNaoCurtidas;
+    TextView tvDescricao, tvCategoria;
     TextView tvIcon;
-
+    ConexaoInternet conexaoInternet;
     FloatingActionButton  btCurtir, btNaoCurtir;
     int qtdCurtir, qtdNaoCurtir;
     Long id;
@@ -57,13 +57,15 @@ public class DetalhesActivity extends AppCompatActivity {
         tvCategoria.setText(categoria);
         tvDescricao.setText(descricao);
         final String URL = "http://192.168.15.14:8080/api/reclamation/"+id;
+        conexaoInternet = new ConexaoInternet(this);
         btCurtir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("Tag", id+"id"+"qtdcurtir"+qtdCurtir);
                 qtdCurtir += 1;
                 Log.d("Tag", id+"id"+"qtdcurtir atualizado"+qtdCurtir);
-//                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
+
+
 
                 StringRequest request = new StringRequest(
                         Request.Method.PUT,
@@ -71,7 +73,7 @@ public class DetalhesActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-//                                Toast.makeText(getApplication(), "Obrigado pelo voto", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplication(), "Obrigado pelo voto", Toast.LENGTH_LONG).show();
                             }
                         },
                         new Response.ErrorListener() {
@@ -93,12 +95,12 @@ public class DetalhesActivity extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(DetalhesActivity.this);
                 requestQueue.add(request);
 
+                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
+                reclamacao.setCurtir(qtdCurtir);
+                reclamacao.save();
 
-//            reclamacao.setCurtir(qtdCurtir);
-//            reclamacao.save();
-
-            Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -137,10 +139,10 @@ public class DetalhesActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
                 startActivity(intent);
-                
-//                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
-//                reclamacao.setNaoCurtir();
-//                reclamacao.save();
+
+                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
+                reclamacao.setNaoCurtir(qtdNaoCurtir);
+                reclamacao.save();
 
             }
         });
