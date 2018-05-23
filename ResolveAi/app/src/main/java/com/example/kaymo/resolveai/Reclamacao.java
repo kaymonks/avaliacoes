@@ -1,7 +1,9 @@
 package com.example.kaymo.resolveai;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Column;
 import com.orm.dsl.Ignore;
+import com.orm.dsl.Table;
 
 import java.util.ArrayList;
 
@@ -9,23 +11,28 @@ import java.util.ArrayList;
  * Created by kaymo on 28/04/2018.
  */
 
+@Table(name = "reclamacoes")
 public class Reclamacao extends SugarRecord {
-    private Long id;
+
+    @Column(name = "categoria")
     private String categoria;
+    @Column(name = "descricao")
     private String descricao;
+    @Column(name = "curtir")
     private int curtir;
-    private int naoCurtir;
+    @Column(name = "naoCurtir")
+    private int naocurtir;
 
     public Reclamacao(String categoria, String descricao) {
         this.categoria = categoria;
         this.descricao = descricao;
     }
 
-    public Reclamacao(String categoria, String descricao, int curtir, int naoCurtir) {
+    public Reclamacao(String categoria, String descricao, int curtir, int naocurtir) {
         this.categoria = categoria;
         this.descricao = descricao;
         this.curtir = curtir;
-        this.naoCurtir = naoCurtir;
+        this.naocurtir = naocurtir;
 
     }
 
@@ -49,25 +56,25 @@ public class Reclamacao extends SugarRecord {
 
     public int getCurtir() { return curtir; }
 
-    public void setCurtir() { this.curtir = this.curtir + 1; }
+    public void setCurtir(int qtdCurtir) { this.curtir = qtdCurtir; }
 
-    public int getNaoCurtir() { return naoCurtir; }
+    public int getNaoCurtir() { return naocurtir; }
 
-    public void setNaoCurtir() { this.naoCurtir = + 1; }
+    public void setNaoCurtir() { this.naocurtir = + 1; }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 //
 
-    public Long getId() {
-        return id;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;

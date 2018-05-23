@@ -12,7 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.orm.SugarRecord;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DetalhesActivity extends AppCompatActivity {
 
@@ -46,17 +56,49 @@ public class DetalhesActivity extends AppCompatActivity {
         tvIcon.setText(icon);
         tvCategoria.setText(categoria);
         tvDescricao.setText(descricao);
-
+        final String URL = "http://192.168.15.14:8080/api/reclamation/"+id;
         btCurtir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("Tag", id+"id"+"qtdcurtir"+qtdCurtir);
+                qtdCurtir += 1;
+                Log.d("Tag", id+"id"+"qtdcurtir atualizado"+qtdCurtir);
+//                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
 
-                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
-                reclamacao.setCurtir();
-                reclamacao.save();
+                StringRequest request = new StringRequest(
+                        Request.Method.PUT,
+                        URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+//                                Toast.makeText(getApplication(), "Obrigado pelo voto", Toast.LENGTH_LONG).show();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("Tag", error+"");
+                            }
+                        }
+                ){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("curtir", String.valueOf(qtdCurtir));
 
-                Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
-                startActivity(intent);
+                        return params;
+                    }
+                };
+
+                RequestQueue requestQueue = Volley.newRequestQueue(DetalhesActivity.this);
+                requestQueue.add(request);
+
+
+//            reclamacao.setCurtir(qtdCurtir);
+//            reclamacao.save();
+
+            Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
+            startActivity(intent);
 
             }
         });
@@ -64,13 +106,42 @@ public class DetalhesActivity extends AppCompatActivity {
         btNaoCurtir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                qtdNaoCurtir += 1;
+                StringRequest request = new StringRequest(
+                        Request.Method.PUT,
+                        URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+//                                Toast.makeText(getApplication(), "Obrigado pelo voto", Toast.LENGTH_LONG).show();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("Tag", error+"");
+                            }
+                        }
+                ){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("naocurtir", String.valueOf(qtdNaoCurtir));
 
-                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
-                reclamacao.setNaoCurtir();
-                reclamacao.save();
+                        return params;
+                    }
+                };
+
+                RequestQueue requestQueue = Volley.newRequestQueue(DetalhesActivity.this);
+                requestQueue.add(request);
 
                 Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
                 startActivity(intent);
+                
+//                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
+//                reclamacao.setNaoCurtir();
+//                reclamacao.save();
+
             }
         });
 

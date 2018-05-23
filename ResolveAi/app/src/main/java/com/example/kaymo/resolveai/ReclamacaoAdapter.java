@@ -38,6 +38,7 @@ class ReclamacaoAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final ReclamacaoHolder gaveta = (ReclamacaoHolder) holder;
         final Reclamacao daVez = this.listaReclamacao.get(position);
+        Log.d(TAG, "onBindViewHolder: "+String.valueOf(daVez.getCurtir())+String.valueOf(daVez.getCategoria()));
         gaveta.exibeReclamacao(daVez);
         gaveta.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,8 +48,8 @@ class ReclamacaoAdapter extends RecyclerView.Adapter {
                 intent.putExtra("icon", gaveta.tvIcon.getText().toString());
                 intent.putExtra("descricao", daVez.getDescricao());
                 intent.putExtra("categoria", daVez.getCategoria());
-                intent.putExtra("curtir", String.valueOf(daVez.getCurtir()));
-                intent.putExtra("naoCurtir", String.valueOf(daVez.getNaoCurtir()));
+                intent.putExtra("curtir", daVez.getCurtir());
+                intent.putExtra("naoCurtir", daVez.getNaoCurtir());
                 context.startActivity(intent);
             }
         });
