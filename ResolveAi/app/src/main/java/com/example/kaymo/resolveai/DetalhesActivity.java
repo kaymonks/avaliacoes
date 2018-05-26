@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,17 +23,21 @@ import com.android.volley.toolbox.Volley;
 import com.orm.SugarRecord;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DetalhesActivity extends AppCompatActivity {
 
-    String categoria, descricao, icon;
+    String categoria, descricao, icon, usuario;
     TextView tvDescricao, tvCategoria;
     TextView tvIcon;
     ConexaoInternet conexaoInternet;
     FloatingActionButton  btCurtir, btNaoCurtir;
-    int qtdCurtir, qtdNaoCurtir;
+    int qtdCurtir, qtdNaoCurtir, excluirItem = 10;//diferença entre não curtir e curtir exclui o registro
     Long id;
+    CheckBox cbResolvido;
+    boolean resolvido = false;
+    boolean novoResolvido;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -45,6 +50,7 @@ public class DetalhesActivity extends AppCompatActivity {
         tvIcon = findViewById(R.id.tvIcon);
         btCurtir = findViewById(R.id.btCurtir);
         btNaoCurtir = findViewById(R.id.btNaoCurtir);
+        cbResolvido = (CheckBox) findViewById(R.id.cbResolvido);
 
         icon = getIntent().getExtras().getString("icon");
         categoria = getIntent().getExtras().getString("categoria");
@@ -52,51 +58,41 @@ public class DetalhesActivity extends AppCompatActivity {
         id = getIntent().getExtras().getLong("id", -1);
         qtdCurtir = getIntent().getExtras().getInt("curtir", -1);
         qtdNaoCurtir = getIntent().getExtras().getInt("naoCurtir", -1);
+        usuario = getIntent().getExtras().getString("usuario", null);
+        resolvido = getIntent().getExtras().getBoolean("resolvido");
+        Log.d("TAG", "atributo resolvido"+ resolvido);
+
+        if (usuario != null) {
+            if (resolvido) {
+                cbResolvido.setChecked(true);
+            }
+            cbResolvido.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (cbResolvido.isChecked()) {
+                        novoResolvido = true;
+                    } else {
+                        novoResolvido = false;
+                    }
+                }
+            });
+        }
 
         tvIcon.setText(icon);
         tvCategoria.setText(categoria);
         tvDescricao.setText(descricao);
-        final String URL = "http://192.168.15.14:8080/api/reclamation/"+id;
         conexaoInternet = new ConexaoInternet(this);
         btCurtir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Tag", id+"id"+"qtdcurtir"+qtdCurtir);
+                Log.d("Tag", id+"id"+"qtdcurtir"+qtdCurtir+"Resolvido"+novoResolvido);
                 qtdCurtir += 1;
                 Log.d("Tag", id+"id"+"qtdcurtir atualizado"+qtdCurtir);
 
-
-
-                StringRequest request = new StringRequest(
-                        Request.Method.PUT,
-                        URL,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Toast.makeText(getApplication(), "Obrigado pelo voto", Toast.LENGTH_LONG).show();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d("Tag", error+"");
-                            }
-                        }
-                ){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("curtir", String.valueOf(qtdCurtir));
-
-                        return params;
-                    }
-                };
-
-                RequestQueue requestQueue = Volley.newRequestQueue(DetalhesActivity.this);
-                requestQueue.add(request);
-
                 Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
+
                 reclamacao.setCurtir(qtdCurtir);
+                reclamacao.setResolvido(novoResolvido);
                 reclamacao.save();
 
                 Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
@@ -109,40 +105,17 @@ public class DetalhesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 qtdNaoCurtir += 1;
-                StringRequest request = new StringRequest(
-                        Request.Method.PUT,
-                        URL,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-//                                Toast.makeText(getApplication(), "Obrigado pelo voto", Toast.LENGTH_LONG).show();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d("Tag", error+"");
-                            }
-                        }
-                ){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("naocurtir", String.valueOf(qtdNaoCurtir));
-
-                        return params;
-                    }
-                };
-
-                RequestQueue requestQueue = Volley.newRequestQueue(DetalhesActivity.this);
-                requestQueue.add(request);
-
-                Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
-                startActivity(intent);
 
                 Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
                 reclamacao.setNaoCurtir(qtdNaoCurtir);
+                reclamacao.setResolvido(novoResolvido);
                 reclamacao.save();
+                if (reclamacao.getNaoCurtir() - reclamacao.getCurtir() > excluirItem) {
+                    reclamacao.delete();
+                }
+
+                Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
+                startActivity(intent);
 
             }
         });

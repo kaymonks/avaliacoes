@@ -32,14 +32,14 @@ class ReclamacaoHolder extends RecyclerView.ViewHolder {
     }
 
     public void exibeReclamacao(Reclamacao daVez) {
-        tvIcon.setText(daVez.getCategoria().substring(0, 1));
-        tvDescricao.setText(daVez.getDescricao());
+        tvIcon.setText(daVez.getDescricao().substring(0, 1));
+        tvDescricao.setText(daVez.getDescricao()+daVez.isResolvido());
         tvUp.setText(String.valueOf(daVez.getCurtir()));
         tvDown.setText(String.valueOf(daVez.getNaoCurtir()));
-        tvCategoria.setText(daVez.getCategoria());
+        tvCategoria.setText(daVez.getCategoria()+daVez.getId());
         Random tvIconRandom = new Random();
         int color = Color.argb(255, tvIconRandom.nextInt(256), tvIconRandom.nextInt(256), tvIconRandom.nextInt(256));
-        Log.d(TAG, "exibeReclamacao: "+color);
+//        Log.d(TAG, "exibeReclamacao: "+color);
         ((GradientDrawable) tvIcon.getBackground()).setColor(color);
     }
 }

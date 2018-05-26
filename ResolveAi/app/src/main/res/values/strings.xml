@@ -10,4 +10,8 @@
     <string name="seguran_a">Segurança</string>
     <string name="outro">Outro</string>
     <string name="categoria">Categoria</string>
+    <string name="title_activity_reclamacoes2">ReclamacoesActivity2</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

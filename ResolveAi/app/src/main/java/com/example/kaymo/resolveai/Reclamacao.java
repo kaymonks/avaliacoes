@@ -2,14 +2,7 @@ package com.example.kaymo.resolveai;
 
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
-import com.orm.dsl.Ignore;
 import com.orm.dsl.Table;
-
-import java.util.ArrayList;
-
-/**
- * Created by kaymo on 28/04/2018.
- */
 
 @Table(name = "reclamacoes")
 public class Reclamacao extends SugarRecord {
@@ -19,9 +12,43 @@ public class Reclamacao extends SugarRecord {
     @Column(name = "descricao")
     private String descricao;
     @Column(name = "curtir")
-    private int curtir;
+    int curtir;
     @Column(name = "naoCurtir")
-    private int naocurtir;
+    int naoCurtir;
+    @Column(name = "resolvido")
+    boolean resolvido;
+
+    public Reclamacao() {
+
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    @Column(name = "usuario")
+    String usuario;
+
+    public boolean isResolvido() {
+        return resolvido;
+    }
+
+    public void setResolvido(boolean resolvido) {
+        this.resolvido = resolvido;
+    }
+
+    public Reclamacao(String categoria, String descricao, int curtir, int naocurtir, String usuario, boolean resolvido) {
+        this.categoria = categoria;
+        this.descricao = descricao;
+        this.curtir = curtir;
+        this.naoCurtir = naocurtir;
+        this.usuario = usuario;
+        this.resolvido = resolvido;
+    }
 
     public Reclamacao(String categoria, String descricao) {
         this.categoria = categoria;
@@ -32,7 +59,7 @@ public class Reclamacao extends SugarRecord {
         this.categoria = categoria;
         this.descricao = descricao;
         this.curtir = curtir;
-        this.naocurtir = naocurtir;
+        this.naoCurtir = naocurtir;
 
     }
 
@@ -40,10 +67,6 @@ public class Reclamacao extends SugarRecord {
         this.categoria = categoria;
         this.descricao = descricao;
         this.curtir = Integer.parseInt(curtir);
-    }
-
-    public Reclamacao() {
-
     }
 
     public String getCategoria() {
@@ -58,25 +81,8 @@ public class Reclamacao extends SugarRecord {
 
     public void setCurtir(int qtdCurtir) { this.curtir = qtdCurtir; }
 
-    public int getNaoCurtir() { return naocurtir; }
+    public int getNaoCurtir() { return naoCurtir; }
 
-    public void setNaoCurtir(int qtdNaoCurtir) { this.naocurtir = qtdNaoCurtir; }
+    public void setNaoCurtir(int qtdNaoCurtir) { this.naoCurtir = qtdNaoCurtir; }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-//
-
-//    public Long getId() {
-//        return id;
-//    }
-//
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
 }

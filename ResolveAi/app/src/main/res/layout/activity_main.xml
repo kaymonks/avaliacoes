@@ -8,6 +8,21 @@
     tools:context="com.example.kaymo.resolveai.MainActivity">
 
 
+    <Button
+        android:id="@+id/btResolvidos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="onClickResolvidos"
+        android:text="@string/visualizar_problemas"
+        android:theme="@style/MyButton2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btAdicionar" />
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"

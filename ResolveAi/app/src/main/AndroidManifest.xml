@@ -17,7 +17,7 @@
             android:value="resolve_ai.db" />
         <meta-data
             android:name="VERSION"
-            android:value="5" />
+            android:value="15" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -32,10 +32,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetalhesActivity" />
-        <activity android:name=".ReclamacaoActivity" />
+        <activity
+            android:name=".DetalhesActivity"
+            android:parentActivityName=".ReclamacoesActivity" />
+        <activity
+            android:name=".ReclamacaoActivity" />
         <activity android:name=".ReclamacoesActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".NovoUsuarioActivity"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".ResolvidosActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ReclamacoesActivity2"
+            android:label="@string/title_activity_reclamacoes2"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

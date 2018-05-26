@@ -1,0 +1,1 @@
+alter table reclamacoes add usuario int;
