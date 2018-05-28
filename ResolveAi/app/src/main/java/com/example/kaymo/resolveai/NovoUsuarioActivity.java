@@ -49,36 +49,6 @@ public class NovoUsuarioActivity extends AppCompatActivity {
             setPreferences(login, senha);
 
             startActivity(new Intent(NovoUsuarioActivity.this, LoginActivity.class));
-
-//            StringRequest request = new StringRequest(
-//                Request.Method.POST,
-//                URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        startActivity(new Intent(NovoUsuarioActivity.this, LoginActivity.class));
-//                    }
-//
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.d("Tag", error+"");
-//                    }
-//                }
-//            ){
-//                @Override
-//                protected Map<String, String> getParams() throws AuthFailureError {
-//                    Map<String, String> params = new HashMap<String, String>();
-//                    params.put("login", login);
-//                    params.put("senha", senha);
-//
-//                    return params;
-//                }
-//            };
-//
-//            RequestQueue requestQueue = Volley.newRequestQueue(NovoUsuarioActivity.this);
-//            requestQueue.add(request);
     }
 
     public void setPreferences(String login, String senha){

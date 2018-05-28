@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         if (getLogin() == "null"){
             intencao = new Intent(this, LoginActivity.class);
         }else {
-            Toast.makeText(this, getLogin()+getLoginId(), Toast.LENGTH_LONG).show();
+            Log.d("TAG", "Login aquiiiiiiiiiiiii"+getLogin());
+
             intencao = new Intent(this, ReclamacaoActivity.class);
         }
 
@@ -54,8 +56,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getLoginId() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login2", MODE_PRIVATE);
         String id = sharedPreferences.getString("id", "null");
         return id;
+    }
+
+    public void testar(View view) {
+        Intent intent = new Intent(this, ReclamacaoActivity2.class);
+        startActivityForResult(intent, 1);
     }
 }

@@ -20,8 +20,6 @@ public class ResolvidosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resolvidos);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         RecyclerView rvLista = findViewById(R.id.rvListaResolvidos);
         SugarContext.init(this);
 

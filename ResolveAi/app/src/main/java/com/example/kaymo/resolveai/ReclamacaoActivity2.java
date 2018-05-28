@@ -13,14 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ReclamacoesActivity2 extends AppCompatActivity
+public class ReclamacaoActivity2 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reclamacoes2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.drawer_layout);
+        setContentView(R.layout.activity_reclamacao2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -55,7 +55,7 @@ public class ReclamacoesActivity2 extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.reclamacoes_activity2, menu);
+        getMenuInflater().inflate(R.menu.reclamacao_activity2, menu);
         return true;
     }
 

@@ -4,7 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,13 +48,15 @@ public class ReclamacaoActivity extends AppCompatActivity {
     String descricao;
     Button salvar;
     int checkedRadioButtonId, idMysql;
+    Context context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reclamacao);
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login2", MODE_PRIVATE);
         final String login = sharedPreferences.getString("login", null);
         Log.d("reclamacao activity", login);
         SugarContext.init( this );
@@ -77,48 +85,6 @@ public class ReclamacaoActivity extends AppCompatActivity {
                 categoria = (String) button.getText();
                 descricao = etDescricao.getText().toString();
 
-//                StringRequest request = new StringRequest(
-//                        Request.Method.POST,
-//                        URL,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                try {
-//                                    JSONObject jo = new JSONObject(response);
-//                                    String result = jo.getString("id");
-//                                    idMysql = Integer.parseInt(result);
-//                                    Log.d("Tag", "Id inserido no mysql"+result);
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-////                                Log.d("TAG", "Novo registro adicionado"+response.toString());
-////                                Toast.makeText(getApplication(), "Problema adicionado com sucesso", Toast.LENGTH_LONG).show();
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                Log.d("TAG", error.toString());
-//                                Toast.makeText(ReclamacaoActivity.this, error+"", Toast.LENGTH_LONG).show();
-//                            }
-//                        }
-//                ){
-//                  @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//                      Map<String, String> params = new HashMap<String, String>();
-//                      params.put("categoria", categoria);
-//                      params.put("descricao", descricao);
-//                      params.put("curtir", "0");
-//                      params.put("naocurtir", "0");
-//                      params.put("usuario", id);
-//                      return params;
-//                  }
-//                };
-//
-//                RequestQueue requestQueue = Volley.newRequestQueue(ReclamacaoActivity.this);
-//                requestQueue.add(request);
-//
-//                int usuario = Integer.parseInt(String.valueOf(id));
                 Log.d("TAG", "TESTEEE"+categoria+descricao);
                 Reclamacao reclamacao = new Reclamacao(categoria, descricao, 0, 0, login, false);
 

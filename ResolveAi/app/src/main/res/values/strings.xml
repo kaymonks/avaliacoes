@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ResolveAi</string>
+    <string name="app_name">ResolveAí</string>
     <string name="action_settings">Settings</string>
     <string name="visualizar_problemas">Visualizar Problemas</string>
     <string name="adicionar_problema">Adicionar Problema</string>
@@ -14,4 +14,6 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_reclamacao2">ReclamacaoActivity2</string>
+    <string name="resolvidos">Resolvidos</string>
 </resources>

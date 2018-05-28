@@ -64,57 +64,6 @@ public class LoginActivity extends AppCompatActivity {
         }else {
             Toast.makeText(this, "Login inválido", Toast.LENGTH_LONG).show();
         }
-
-//        StringRequest request = new StringRequest(
-//            Request.Method.POST,
-//            URL,
-//            new Response.Listener<String>() {
-//                @Override
-//                public void onResponse(String response) {
-//                        try {
-//                            JSONArray array = new JSONArray(response);
-//                            Log.d("Tag login com id", array+"teste");
-//                            for (int i=0; i < array.length(); i++) {
-//                                JSONObject product = array.getJSONObject(i);
-//
-//                                novoLogin = product.getString("login");
-//                                novaSenha = product.getString("senha");
-//                                novoId = product.getInt("id");
-//
-//                            }
-//                            if (novoLogin == null) {
-//                                Toast.makeText(getApplication(), "Login invalido", Toast.LENGTH_LONG).show();
-//                            } else {
-//                                setPreferences(novoLogin, novaSenha, novoId);
-//                                startActivity(new Intent(LoginActivity.this, ReclamacaoActivity.class));
-//                                                            Log.d("Tag login String com id", novoLogin+novaSenha+novoId+"");
-//                            }
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                }
-//            },
-//            new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    Log.d("Tag", error+"");
-//                }
-//            }
-//        ){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("login", login);
-//                params.put("senha", senha);
-//
-//                return params;
-//            }
-//        };
-//
-//        RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
-//        requestQueue.add(request);
-
     }
 
     public void novoUsuario(View view) {

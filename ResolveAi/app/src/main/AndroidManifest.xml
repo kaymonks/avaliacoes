@@ -35,19 +35,19 @@
         <activity
             android:name=".DetalhesActivity"
             android:parentActivityName=".ReclamacoesActivity" />
-        <activity
-            android:name=".ReclamacaoActivity" />
-        <activity android:name=".ReclamacoesActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".ReclamacaoActivity"  />
+        <activity android:name=".ReclamacoesActivity" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginActivity"  />
         <activity
             android:name=".NovoUsuarioActivity"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".ResolvidosActivity"
-            android:parentActivityName=".MainActivity" />
+            android:label="@string/resolvidos"
+            android:parentActivityName=".ReclamacoesActivity" />
         <activity
-            android:name=".ReclamacoesActivity2"
-            android:label="@string/title_activity_reclamacoes2"
+            android:name=".ReclamacaoActivity2"
+            android:label="@string/title_activity_reclamacao2"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
