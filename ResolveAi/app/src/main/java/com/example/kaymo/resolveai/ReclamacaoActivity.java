@@ -56,8 +56,8 @@ public class ReclamacaoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reclamacao);
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login2", MODE_PRIVATE);
-        final String login = sharedPreferences.getString("login", null);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+        final String login = sharedPreferences.getString("username", "null");
         Log.d("reclamacao activity", login);
         SugarContext.init( this );
         salvar = findViewById(R.id.btSalvar);

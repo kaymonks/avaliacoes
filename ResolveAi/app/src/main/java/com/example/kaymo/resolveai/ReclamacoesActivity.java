@@ -1,7 +1,9 @@
 package com.example.kaymo.resolveai;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -45,7 +47,10 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
     private final int ADICIONAR_RECLAMACAO_CODE = 1;
     ReclamacaoAdapter adaptador;
     ConexaoInternet conexaoInternet;
+    Reclamacao reclamacao;
+    FloatingActionButton btAdicionar;
 
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +60,17 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btAdicionarReclamacoes);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intencao = new Intent(getApplication(), ReclamacaoActivity.class);
-                startActivityForResult(intencao, 1);
+                if (getLogin() == "null"){
+                    Intent intent = new Intent(getApplication(), LoginActivity.class);
+                    startActivityForResult(intent, 1);
+                } else {
+                    Intent intencao = new Intent(getApplication(), ReclamacaoActivity.class);
+                    startActivityForResult(intencao, 1);
+                }
             }
         });
 
@@ -72,6 +82,13 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        reclamacao = new Reclamacao();
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+        String login = sharedPreferences.getString("username", "null");
+        Log.d("TAG", "Nome login nas preferences:"+login);
+        if (!login.equals("admin")){
+            hideItem();
+        }
         /* //Menu*/
 
         final RecyclerView rvLista = findViewById(R.id.rvLista);
@@ -110,6 +127,28 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
         rvLista.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
 
         rvLista.setLayoutManager(new LinearLayoutManager(this));
+
+//        btAdicionar = findViewById(R.id.btAdicionarReclamacoes);
+//
+//        btAdicionar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intencao;
+//                if (getLogin() == "null"){
+//                    intencao = new Intent(getApplication(), LoginActivity.class);
+//                }else {
+//                    intencao = new Intent(getApplication(), ReclamacaoActivity.class);
+//                }
+//
+//                startActivityForResult(intencao, 1);
+//            }
+//        });
+    }
+
+    public void hideItem() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        Menu nav_arq = navigationView.getMenu();
+        nav_arq.findItem(R.id.nav_arq).setVisible(false);
     }
 
 
@@ -120,6 +159,27 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
                 adaptador.notifyDataSetChanged();
             }
         }
+    }
+
+    public void onClickAddReclamacao(View view) {
+        Intent intencao;
+        if (getLogin() == "null"){
+            intencao = new Intent(this, LoginActivity.class);
+        }else {
+
+            intencao = new Intent(this, ReclamacaoActivity.class);
+        }
+
+        startActivityForResult(intencao, 1);
+    }
+
+    public String getLogin() {
+
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+//        sharedPreferences.edit().clear().apply();
+        String login = sharedPreferences.getString("username", "null");
+
+        return login;
     }
 
     @Override

@@ -85,9 +85,9 @@ public class DetalhesActivity extends AppCompatActivity {
         btCurtir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Tag", id+"id"+"qtdcurtir"+qtdCurtir+"Resolvido"+novoResolvido);
+//                Log.d("Tag", id+"id"+"qtdcurtir"+qtdCurtir+"Resolvido"+novoResolvido);
                 qtdCurtir += 1;
-                Log.d("Tag", id+"id"+"qtdcurtir atualizado"+qtdCurtir);
+//                Log.d("Tag", id+"id"+"qtdcurtir atualizado"+qtdCurtir);
 
                 Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
 

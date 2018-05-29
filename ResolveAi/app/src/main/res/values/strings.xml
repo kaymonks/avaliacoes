@@ -22,4 +22,9 @@
     <string name="novoUsuario">Novo Usuário</string>
     <string name="adicionarReclamacao">Adicionar Reclamação</string>
     <string name="home">Home</string>
+    <string name="entrar">Entrar</string>
+    <string name="senha">Senha</string>
+    <string name="login">Login</string>
+    <string name="registrar">Registrar</string>
+    <string name="reolveai">reolveai</string>
 </resources>

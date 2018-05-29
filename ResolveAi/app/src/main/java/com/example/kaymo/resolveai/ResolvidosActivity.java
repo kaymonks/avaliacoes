@@ -1,12 +1,15 @@
 package com.example.kaymo.resolveai;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import com.orm.SugarContext;
 
@@ -15,6 +18,7 @@ import java.util.List;
 public class ResolvidosActivity extends AppCompatActivity {
 
     ReclamacaoAdapter adapter;
+    FloatingActionButton btAdicionar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +33,43 @@ public class ResolvidosActivity extends AppCompatActivity {
         rvLista.setAdapter(adapter);
         rvLista.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
         rvLista.setLayoutManager(new LinearLayoutManager(this));
+        btAdicionar = findViewById(R.id.btAdicionarResolvido);
+
+        btAdicionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intencao;
+                if (getLogin() == "null"){
+                    intencao = new Intent(getApplication(), LoginActivity.class);
+                }else {
+
+                    intencao = new Intent(getApplication(), ReclamacaoActivity.class);
+                }
+
+                startActivityForResult(intencao, 1);
+            }
+        });
     }
 
-    public void onClickAddReclamacao(View view) {
-        Intent intencao = new Intent(this, ReclamacaoActivity.class);
-        startActivityForResult(intencao, 1);
+//    public void onClickAddReclamacao(View view) {
+//        Intent intencao;
+//        if (getLogin() == "null"){
+//            intencao = new Intent(this, LoginActivity.class);
+//        }else {
+//
+//            intencao = new Intent(this, ResolvidosActivity.class);
+//        }
+//
+//        startActivityForResult(intencao, 1);
+//    }
+
+    public String getLogin() {
+
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+//        sharedPreferences.edit().clear().apply();
+        String login = sharedPreferences.getString("username", "null");
+
+        return login;
     }
 
 }

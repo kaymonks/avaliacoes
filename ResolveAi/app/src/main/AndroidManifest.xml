@@ -25,7 +25,9 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.example.kaymo.resolveai" />
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,10 +42,9 @@
             android:name=".ReclamacoesActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/reclamacoes"/>
-        <activity android:name=".LoginActivity" />
         <activity
             android:name=".NovoUsuarioActivity"
-            android:label="@string/novoUsuario"
+            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".ResolvidosActivity"
@@ -62,6 +63,10 @@
             android:name=".ArquivadosActivity"
             android:label="@string/arquivados"
             android:parentActivityName=".ReclamacoesActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="Login"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

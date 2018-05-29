@@ -46,16 +46,27 @@ public class NovoUsuarioActivity extends AppCompatActivity {
             login = etLogin.getText().toString();
             senha = etSenha.getText().toString();
 
-            setPreferences(login, senha);
+            if (login.equals("")) {
+                Toast.makeText(getBaseContext(), "Login obrigatório", Toast.LENGTH_LONG).show();
+                return;
+            }
 
+            if (senha.equals("")) {
+                Toast.makeText(getBaseContext(), "Senha obrigatório", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            setPreferences(login, senha);
+            Log.d("TAG", "Dados"+login+senha);
             startActivity(new Intent(NovoUsuarioActivity.this, LoginActivity.class));
     }
 
     public void setPreferences(String login, String senha){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login2", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+//        sharedPreferences.edit().clear().apply();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
-        editor.putString("login", login);
+        editor.putString("username", login);
         editor.putString("senha", senha);
         editor.apply();
     }

@@ -31,9 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText etLogin, etSenha;
     Button btLogin, btRegistro;
     String login, senha, novoLogin, novaSenha;
-    Context context;
-    int novoId = 0;
-    final String URL = "http://192.168.15.14:8080/api/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +47,15 @@ public class LoginActivity extends AppCompatActivity {
         novoLogin = etLogin.getText().toString();
         novaSenha = etSenha.getText().toString();
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login2", MODE_PRIVATE);
+//        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
 //        sharedPreferences.edit().clear().apply();
 
-//        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
-        login = sharedPreferences.getString("login", "null");
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+        login = sharedPreferences.getString("username", "null");
         senha = sharedPreferences.getString("senha", "null");
-        Log.d("TAG", "Dados"+login+senha+novoLogin+novaSenha);
+        Log.d("TAG", "Dados "+login+" "+senha+" - "+novoLogin+"  "+novaSenha);
 
-        if (login == novoLogin && senha == novaSenha) {
+        if (login.equals(novoLogin) && senha.equals(novaSenha) ) {
             Intent intent = new Intent(this, ReclamacoesActivity.class);
             startActivity(intent);
         }else {
@@ -69,16 +66,5 @@ public class LoginActivity extends AppCompatActivity {
     public void novoUsuario(View view) {
         Intent intent = new Intent(this, NovoUsuarioActivity.class);
         this.startActivity(intent);
-    }
-
-    public void setPreferences(String login, String senha, int id){
-        Log.d("Tag set preferences id", id+"");
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.clear();
-        editor.putString("login", login);
-        editor.putString("senha", senha);
-        editor.putString("id", String.valueOf(id));
-        editor.apply();
     }
 }

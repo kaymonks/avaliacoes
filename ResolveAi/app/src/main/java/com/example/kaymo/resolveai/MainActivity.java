@@ -1,6 +1,7 @@
 package com.example.kaymo.resolveai;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,29 +41,12 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intencao, 1);
     }
 
-    public void onClickResolvidos(View view) {
-        Intent intencao = new Intent(this, ResolvidosActivity.class);
-        startActivityForResult(intencao, 1);
-    }
-
     public String getLogin() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login2", MODE_PRIVATE);
-//        sharedPreferences.edit().clear().apply();
 
-//        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
-        String login = sharedPreferences.getString("login", "null");
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+//        sharedPreferences.edit().clear().apply();
+        String login = sharedPreferences.getString("username", "null");
 
         return login;
-    }
-
-    public String getLoginId() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login2", MODE_PRIVATE);
-        String id = sharedPreferences.getString("id", "null");
-        return id;
-    }
-
-    public void testar(View view) {
-        Intent intent = new Intent(this, ReclamacaoActivity2.class);
-        startActivityForResult(intent, 1);
     }
 }
