@@ -16,4 +16,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_reclamacao2">ReclamacaoActivity2</string>
     <string name="resolvidos">Resolvidos</string>
+    <string name="arquivados">Arquivados</string>
+    <string name="detalhes">Detalhes</string>
+    <string name="reclamacoes">Reclamações</string>
+    <string name="novoUsuario">Novo Usuário</string>
+    <string name="adicionarReclamacao">Adicionar Reclamação</string>
+    <string name="home">Home</string>
 </resources>

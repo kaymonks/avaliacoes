@@ -92,6 +92,9 @@ public class DetalhesActivity extends AppCompatActivity {
                 Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
 
                 reclamacao.setCurtir(qtdCurtir);
+                if (reclamacao.getNaoCurtir() - reclamacao.getCurtir() <= excluirItem) {
+                    reclamacao.setArquivado(false);
+                }
                 reclamacao.setResolvido(novoResolvido);
                 reclamacao.save();
 
@@ -109,10 +112,10 @@ public class DetalhesActivity extends AppCompatActivity {
                 Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
                 reclamacao.setNaoCurtir(qtdNaoCurtir);
                 reclamacao.setResolvido(novoResolvido);
-                reclamacao.save();
                 if (reclamacao.getNaoCurtir() - reclamacao.getCurtir() > excluirItem) {
-                    reclamacao.delete();
+                    reclamacao.setArquivado(true);
                 }
+                reclamacao.save();
 
                 Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
                 startActivity(intent);

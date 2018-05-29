@@ -74,8 +74,6 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
         navigationView.setNavigationItemSelectedListener(this);
         /* //Menu*/
 
-        final ArrayList<Reclamacao> mReclamacaoList = new ArrayList<>();
-        String URL = "http://192.168.15.14:8080/api/reclamations";
         final RecyclerView rvLista = findViewById(R.id.rvLista);
         SugarContext.init( this );
 //        conexaoInternet = new ConexaoInternet(this);
@@ -105,7 +103,7 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
 //        requestQueue.add(request);
 
 //            List<Reclamacao> reclamacoes = Reclamacao.listAll(Reclamacao.class);
-        List<Reclamacao> reclamacoes = Reclamacao.findWithQuery(Reclamacao.class, "SELECT * FROM reclamacoes where resolvido = ? ORDER BY curtir DESC, naocurtir ASC", "0");
+        List<Reclamacao> reclamacoes = Reclamacao.findWithQuery(Reclamacao.class, "SELECT * FROM reclamacoes WHERE resolvido = ? AND arquivados = ? ORDER BY curtir DESC, naocurtir ASC", "0", "0");
         adaptador = new ReclamacaoAdapter(ReclamacoesActivity.this, reclamacoes);
         rvLista.setAdapter(adaptador);
 
@@ -165,16 +163,12 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
         if (id == R.id.nav_res) {
             Intent intencao = new Intent(this, ResolvidosActivity.class);
             startActivityForResult(intencao, 1);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_arq) {
+            Intent intencao = new Intent(this, ArquivadosActivity.class);
+            startActivityForResult(intencao, 1);
+        }else if (id == R.id.nav_home) {
+            Intent intencao = new Intent(this, MainActivity.class);
+            startActivityForResult(intencao, 1);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

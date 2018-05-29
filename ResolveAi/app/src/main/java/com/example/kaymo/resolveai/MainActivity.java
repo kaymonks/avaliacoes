@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         if (getLogin() == "null"){
             intencao = new Intent(this, LoginActivity.class);
         }else {
-            Log.d("TAG", "Login aquiiiiiiiiiiiii"+getLogin());
 
             intencao = new Intent(this, ReclamacaoActivity.class);
         }

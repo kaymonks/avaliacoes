@@ -86,7 +86,7 @@ public class ReclamacaoActivity extends AppCompatActivity {
                 descricao = etDescricao.getText().toString();
 
                 Log.d("TAG", "TESTEEE"+categoria+descricao);
-                Reclamacao reclamacao = new Reclamacao(categoria, descricao, 0, 0, login, false);
+                Reclamacao reclamacao = new Reclamacao(categoria, descricao, 0, 0, login, false, false);
 
                 Long idInserido = reclamacao.save();
 

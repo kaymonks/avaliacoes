@@ -17,6 +17,16 @@ public class Reclamacao extends SugarRecord {
     int naoCurtir;
     @Column(name = "resolvido")
     boolean resolvido;
+    @Column(name = "arquivados")
+    boolean arquivados;
+
+    public boolean isArquivado() {
+        return arquivados;
+    }
+
+    public void setArquivado(boolean arquivado) {
+        this.arquivados = arquivado;
+    }
 
     public Reclamacao() {
 
@@ -41,13 +51,14 @@ public class Reclamacao extends SugarRecord {
         this.resolvido = resolvido;
     }
 
-    public Reclamacao(String categoria, String descricao, int curtir, int naocurtir, String usuario, boolean resolvido) {
+    public Reclamacao(String categoria, String descricao, int curtir, int naocurtir, String usuario, boolean resolvido, boolean arquivado) {
         this.categoria = categoria;
         this.descricao = descricao;
         this.curtir = curtir;
         this.naoCurtir = naocurtir;
         this.usuario = usuario;
         this.resolvido = resolvido;
+        this.arquivados = arquivado;
     }
 
     public Reclamacao(String categoria, String descricao) {

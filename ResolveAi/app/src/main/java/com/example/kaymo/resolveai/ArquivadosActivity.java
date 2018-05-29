@@ -12,20 +12,20 @@ import com.orm.SugarContext;
 
 import java.util.List;
 
-public class ResolvidosActivity extends AppCompatActivity {
+public class ArquivadosActivity extends AppCompatActivity {
 
     ReclamacaoAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resolvidos);
+        setContentView(R.layout.activity_arquivados);
 
-        RecyclerView rvLista = findViewById(R.id.rvListaResolvidos);
+        RecyclerView rvLista = findViewById(R.id.rvListaArquivados);
         SugarContext.init(this);
 
-        List<Reclamacao> reclamacoes = Reclamacao.findWithQuery(Reclamacao.class, "SELECT * FROM reclamacoes where resolvido = ? ORDER BY curtir DESC, naocurtir ASC", "1");
-        adapter = new ReclamacaoAdapter(ResolvidosActivity.this, reclamacoes);
+        List<Reclamacao> reclamacoes = Reclamacao.findWithQuery(Reclamacao.class, "SELECT * FROM reclamacoes where arquivados = ? ORDER BY curtir DESC, naocurtir ASC", "1");
+        adapter = new ReclamacaoAdapter(ArquivadosActivity.this, reclamacoes);
         rvLista.setAdapter(adapter);
         rvLista.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
         rvLista.setLayoutManager(new LinearLayoutManager(this));
@@ -35,5 +35,4 @@ public class ResolvidosActivity extends AppCompatActivity {
         Intent intencao = new Intent(this, ReclamacaoActivity.class);
         startActivityForResult(intencao, 1);
     }
-
 }
