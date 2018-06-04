@@ -63,7 +63,7 @@ public class NovoUsuarioActivity extends AppCompatActivity {
 
     public void setPreferences(String login, String senha){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
-//        sharedPreferences.edit().clear().apply();
+        sharedPreferences.edit().clear().apply();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.putString("username", login);

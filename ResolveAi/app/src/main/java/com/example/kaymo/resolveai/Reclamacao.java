@@ -61,24 +61,6 @@ public class Reclamacao extends SugarRecord {
         this.arquivados = arquivado;
     }
 
-    public Reclamacao(String categoria, String descricao) {
-        this.categoria = categoria;
-        this.descricao = descricao;
-    }
-
-    public Reclamacao(String categoria, String descricao, int curtir, int naocurtir) {
-        this.categoria = categoria;
-        this.descricao = descricao;
-        this.curtir = curtir;
-        this.naoCurtir = naocurtir;
-
-    }
-
-    public Reclamacao(String categoria, String descricao, String curtir) {
-        this.categoria = categoria;
-        this.descricao = descricao;
-        this.curtir = Integer.parseInt(curtir);
-    }
 
     public String getCategoria() {
         return categoria;

@@ -62,7 +62,7 @@ public class ReclamacaoActivity extends AppCompatActivity {
         SugarContext.init( this );
         salvar = findViewById(R.id.btSalvar);
         salvar.setOnClickListener(new View.OnClickListener() {
-            final String URL = "http://192.168.15.14:8080/api/reclamation/";
+//            final String URL = "http://192.168.15.14:80/80/api/reclamation/";
 
             @Override
             public void onClick(View view) {
@@ -85,7 +85,7 @@ public class ReclamacaoActivity extends AppCompatActivity {
                 categoria = (String) button.getText();
                 descricao = etDescricao.getText().toString();
 
-                Log.d("TAG", "TESTEEE"+categoria+descricao);
+//                Log.d("TAG", "TESTEEE"+categoria+descricao);
                 Reclamacao reclamacao = new Reclamacao(categoria, descricao, 0, 0, login, false, false);
 
                 Long idInserido = reclamacao.save();

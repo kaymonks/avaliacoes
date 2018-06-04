@@ -2,6 +2,7 @@ package com.example.kaymo.resolveai;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,7 +61,9 @@ public class DetalhesActivity extends AppCompatActivity {
         qtdNaoCurtir = getIntent().getExtras().getInt("naoCurtir", -1);
         usuario = getIntent().getExtras().getString("usuario", null);
         resolvido = getIntent().getExtras().getBoolean("resolvido");
-        Log.d("TAG", "atributo resolvido"+ resolvido);
+        Log.d("TAG", "atributo resolvido"+ resolvido+"Usuario"+usuario);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
+        String login = sharedPreferences.getString("username", "null");
 
         if (usuario != null) {
             if (resolvido) {
@@ -78,6 +81,11 @@ public class DetalhesActivity extends AppCompatActivity {
             });
         }
 
+        if (login.equals("null")) {
+            cbResolvido.setVisibility(View.GONE);
+            Log.d("TAG", "usuario diferente de 'admin':"+usuario);
+        }
+
         tvIcon.setText(icon);
         tvCategoria.setText(categoria);
         tvDescricao.setText(descricao);
@@ -86,20 +94,20 @@ public class DetalhesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                Log.d("Tag", id+"id"+"qtdcurtir"+qtdCurtir+"Resolvido"+novoResolvido);
-                qtdCurtir += 1;
+            qtdCurtir += 1;
 //                Log.d("Tag", id+"id"+"qtdcurtir atualizado"+qtdCurtir);
 
-                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
+            Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
 
-                reclamacao.setCurtir(qtdCurtir);
-                if (reclamacao.getNaoCurtir() - reclamacao.getCurtir() <= excluirItem) {
-                    reclamacao.setArquivado(false);
-                }
-                reclamacao.setResolvido(novoResolvido);
-                reclamacao.save();
+            reclamacao.setCurtir(qtdCurtir);
+            if (reclamacao.getNaoCurtir() - reclamacao.getCurtir() <= excluirItem) {
+                reclamacao.setArquivado(false);
+            }
+            reclamacao.setResolvido(novoResolvido);
+            reclamacao.save();
 
-                Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
+            startActivity(intent);
 
             }
         });
@@ -107,18 +115,18 @@ public class DetalhesActivity extends AppCompatActivity {
         btNaoCurtir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                qtdNaoCurtir += 1;
+            qtdNaoCurtir += 1;
 
-                Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
-                reclamacao.setNaoCurtir(qtdNaoCurtir);
-                reclamacao.setResolvido(novoResolvido);
-                if (reclamacao.getNaoCurtir() - reclamacao.getCurtir() > excluirItem) {
-                    reclamacao.setArquivado(true);
-                }
-                reclamacao.save();
+            Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
+            reclamacao.setNaoCurtir(qtdNaoCurtir);
+            reclamacao.setResolvido(novoResolvido);
+            if (reclamacao.getNaoCurtir() - reclamacao.getCurtir() > excluirItem) {
+                reclamacao.setArquivado(true);
+            }
+            reclamacao.save();
 
-                Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
+            startActivity(intent);
 
             }
         });

@@ -46,7 +46,6 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
 
     private final int ADICIONAR_RECLAMACAO_CODE = 1;
     ReclamacaoAdapter adaptador;
-    ConexaoInternet conexaoInternet;
     Reclamacao reclamacao;
     FloatingActionButton btAdicionar;
 

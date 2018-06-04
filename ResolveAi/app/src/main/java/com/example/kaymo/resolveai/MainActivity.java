@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         if (getLogin() == "null"){
             intencao = new Intent(this, LoginActivity.class);
         }else {
-
             intencao = new Intent(this, ReclamacaoActivity.class);
         }
 
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public String getLogin() {
 
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
-//        sharedPreferences.edit().clear().apply();
+        sharedPreferences.edit().clear().apply();
         String login = sharedPreferences.getString("username", "null");
 
         return login;
