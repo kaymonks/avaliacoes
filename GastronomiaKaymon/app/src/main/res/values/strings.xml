@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GastronomiaKaymon</string>
+    <string name="entrada">Entrada</string>
+    <string name="prato_principal">Prato Pricipal</string>
+    <string name="sobremesa">Sobremesa</string>
+    <string name="lanche">Lanche</string>
+</resources>
