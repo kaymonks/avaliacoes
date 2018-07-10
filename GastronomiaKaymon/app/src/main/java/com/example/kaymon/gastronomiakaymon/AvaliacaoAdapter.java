@@ -3,6 +3,7 @@ package com.example.kaymon.gastronomiakaymon;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 public class AvaliacaoAdapter extends RecyclerView.Adapter {
+    private static final String TAG = "ContentValues";
     private List<Avaliacao> listaAvaliacao;
     private Context context;
 
@@ -29,11 +31,14 @@ public class AvaliacaoAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final AvaliacaoHolder gaveta = (AvaliacaoHolder) holder;
         final Avaliacao daVez = this.listaAvaliacao.get(position);
+        Log.d(TAG, "onBindViewHolder: "+String.valueOf(daVez.getCategoria()));
         gaveta.exibeMapa(daVez);
         gaveta.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(context, )
+                Intent intent = new Intent(context, MapaActivity.class);
+                intent.putExtra("categoria", daVez.getCategoria());
+                context.startActivity(intent);
             }
         });
     }

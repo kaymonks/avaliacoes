@@ -4,4 +4,5 @@
     <string name="prato_principal">Prato Pricipal</string>
     <string name="sobremesa">Sobremesa</string>
     <string name="lanche">Lanche</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
