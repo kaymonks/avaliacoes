@@ -1,3 +1,3 @@
-# AndroidM2
-Avaliação com apresentação da m2
-Alunos: Kaymon Storino, Ricardo Victorino
+# AndroidM3
+
+Alunos: Kaymon Storino, Leandro
