@@ -9,7 +9,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="376dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,9 +18,9 @@
             android:id="@+id/tvDescricao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             android:text="TextView"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,9 +46,9 @@
             android:id="@+id/tvCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:text="TextView"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,11 +60,22 @@
             android:id="@+id/cbResolvido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
             android:text="Resolvido"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -72,29 +83,38 @@
         android:id="@+id/btCurtir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
-        app:backgroundTint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:focusable="true"
+        app:backgroundTint="@color/colorGreen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:srcCompat="@drawable/ic_mood_white_24dp"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_mood_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btNaoCurtir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:focusable="true"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:srcCompat="@drawable/ic_mood_bad_white_24dp"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_mood_bad_white_24dp" />
+
+    <Button
+        android:id="@+id/btComentario"
+        android:layout_width="123dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Comentários"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btNaoCurtir" />
 
 </android.support.constraint.ConstraintLayout>

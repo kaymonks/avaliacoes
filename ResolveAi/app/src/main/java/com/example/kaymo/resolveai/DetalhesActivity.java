@@ -29,14 +29,15 @@ import java.util.Map;
 
 public class DetalhesActivity extends AppCompatActivity {
 
-    String categoria, descricao, icon, usuario;
-    TextView tvDescricao, tvCategoria;
+    String categoria, descricao, icon, usuario, data;
+    TextView tvDescricao, tvCategoria, tvData;
     TextView tvIcon;
     ConexaoInternet conexaoInternet;
     FloatingActionButton  btCurtir, btNaoCurtir;
     int qtdCurtir, qtdNaoCurtir, excluirItem = 10;//diferença entre não curtir e curtir exclui o registro
     Long id;
     CheckBox cbResolvido;
+    Button comentario;
     boolean resolvido = false;
     boolean novoResolvido;
 
@@ -49,13 +50,16 @@ public class DetalhesActivity extends AppCompatActivity {
         tvCategoria = findViewById(R.id.tvCategoria);
         tvDescricao = findViewById(R.id.tvDescricao);
         tvIcon = findViewById(R.id.tvIcon);
+        tvData = findViewById(R.id.tvData);
         btCurtir = findViewById(R.id.btCurtir);
         btNaoCurtir = findViewById(R.id.btNaoCurtir);
         cbResolvido = (CheckBox) findViewById(R.id.cbResolvido);
+        comentario = findViewById(R.id.btComentario);
 
         icon = getIntent().getExtras().getString("icon");
         categoria = getIntent().getExtras().getString("categoria");
         descricao = getIntent().getExtras().getString("descricao");
+        data = getIntent().getExtras().getString("data");
         id = getIntent().getExtras().getLong("id", -1);
         qtdCurtir = getIntent().getExtras().getInt("curtir", -1);
         qtdNaoCurtir = getIntent().getExtras().getInt("naoCurtir", -1);
@@ -64,6 +68,7 @@ public class DetalhesActivity extends AppCompatActivity {
         Log.d("TAG", "atributo resolvido"+ resolvido+"Usuario"+usuario);
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
         String login = sharedPreferences.getString("username", "null");
+        final Reclamacao reclamacao = Reclamacao.findById(Reclamacao.class, id);
 
         if (usuario != null) {
             if (resolvido) {
@@ -89,6 +94,7 @@ public class DetalhesActivity extends AppCompatActivity {
         tvIcon.setText(icon);
         tvCategoria.setText(categoria);
         tvDescricao.setText(descricao);
+        tvData.setText(data);
         conexaoInternet = new ConexaoInternet(this);
         btCurtir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +134,15 @@ public class DetalhesActivity extends AppCompatActivity {
             Intent intent = new Intent(getBaseContext(), ReclamacoesActivity.class);
             startActivity(intent);
 
+            }
+        });
+
+        comentario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), ComentariosActivity.class);
+                intent.putExtra("reclamacaoId", reclamacao.getId());
+                startActivity(intent);
             }
         });
 

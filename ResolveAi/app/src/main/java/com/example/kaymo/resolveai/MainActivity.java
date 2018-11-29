@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public String getLogin() {
 
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
-        sharedPreferences.edit().clear().apply();
+        //sharedPreferences.edit().clear().apply();
         String login = sharedPreferences.getString("username", "null");
 
         return login;

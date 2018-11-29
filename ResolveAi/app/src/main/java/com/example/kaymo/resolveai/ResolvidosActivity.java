@@ -18,7 +18,6 @@ import java.util.List;
 public class ResolvidosActivity extends AppCompatActivity {
 
     ReclamacaoAdapter adapter;
-    FloatingActionButton btAdicionar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,43 +32,6 @@ public class ResolvidosActivity extends AppCompatActivity {
         rvLista.setAdapter(adapter);
         rvLista.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
         rvLista.setLayoutManager(new LinearLayoutManager(this));
-        btAdicionar = findViewById(R.id.btAdicionarResolvido);
 
-        btAdicionar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intencao;
-                if (getLogin() == "null"){
-                    intencao = new Intent(getApplication(), LoginActivity.class);
-                }else {
-
-                    intencao = new Intent(getApplication(), ReclamacaoActivity.class);
-                }
-
-                startActivityForResult(intencao, 1);
-            }
-        });
     }
-
-//    public void onClickAddReclamacao(View view) {
-//        Intent intencao;
-//        if (getLogin() == "null"){
-//            intencao = new Intent(this, LoginActivity.class);
-//        }else {
-//
-//            intencao = new Intent(this, ResolvidosActivity.class);
-//        }
-//
-//        startActivityForResult(intencao, 1);
-//    }
-
-    public String getLogin() {
-
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
-//        sharedPreferences.edit().clear().apply();
-        String login = sharedPreferences.getString("username", "null");
-
-        return login;
-    }
-
 }

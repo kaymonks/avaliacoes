@@ -34,7 +34,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +88,10 @@ public class ReclamacaoActivity extends AppCompatActivity {
                 descricao = etDescricao.getText().toString();
 
 //                Log.d("TAG", "TESTEEE"+categoria+descricao);
-                Reclamacao reclamacao = new Reclamacao(categoria, descricao, 0, 0, login, false, false);
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+                String datetime = dateformat.format(c.getTime());
+                Reclamacao reclamacao = new Reclamacao(categoria, descricao, datetime, 0, 0, login, false, false);
 
                 Long idInserido = reclamacao.save();
 

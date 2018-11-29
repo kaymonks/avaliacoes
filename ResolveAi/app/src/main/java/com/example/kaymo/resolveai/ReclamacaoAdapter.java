@@ -48,6 +48,7 @@ class ReclamacaoAdapter extends RecyclerView.Adapter {
                 intent.putExtra("icon", gaveta.tvIcon.getText().toString());
                 intent.putExtra("descricao", daVez.getDescricao());
                 intent.putExtra("categoria", daVez.getCategoria());
+                intent.putExtra("data", daVez.getData());
                 intent.putExtra("curtir", daVez.getCurtir());
                 intent.putExtra("naoCurtir", daVez.getNaoCurtir());
                 intent.putExtra("usuario", daVez.getUsuario());

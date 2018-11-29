@@ -32,7 +32,7 @@ class ReclamacaoHolder extends RecyclerView.ViewHolder {
     }
 
     public void exibeReclamacao(Reclamacao daVez) {
-        tvIcon.setText(daVez.getDescricao().substring(0, 1));
+        tvIcon.setText(daVez.getDescricao().toUpperCase().substring(0, 1));
         tvDescricao.setText(daVez.getDescricao());
         tvUp.setText(String.valueOf(daVez.getCurtir()));
         tvDown.setText(String.valueOf(daVez.getNaoCurtir()));
