@@ -27,8 +27,8 @@ public class ResolvidosActivity extends AppCompatActivity {
         RecyclerView rvLista = findViewById(R.id.rvListaResolvidos);
         SugarContext.init(this);
 
-        List<Reclamacao> reclamacoes = Reclamacao.findWithQuery(Reclamacao.class, "SELECT * FROM reclamacoes where resolvido = ? ORDER BY curtir DESC, naocurtir ASC", "1");
-        adapter = new ReclamacaoAdapter(ResolvidosActivity.this, reclamacoes);
+//        List<Reclamacao> reclamacoes = Reclamacao.findWithQuery(Reclamacao.class, "SELECT * FROM reclamacoes where resolvido = ? ORDER BY curtir DESC, naocurtir ASC", "1");
+        //adapter = new ReclamacaoAdapter(ResolvidosActivity.this, reclamacoes);
         rvLista.setAdapter(adapter);
         rvLista.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
         rvLista.setLayoutManager(new LinearLayoutManager(this));

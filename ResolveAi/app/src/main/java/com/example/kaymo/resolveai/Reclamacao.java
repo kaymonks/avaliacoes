@@ -1,30 +1,16 @@
 package com.example.kaymo.resolveai;
 
-import com.orm.SugarRecord;
-import com.orm.dsl.Column;
-import com.orm.dsl.Table;
-
-import java.util.List;
-
-@Table(name = "reclamacoes")
-public class Reclamacao extends SugarRecord {
-    private Long id;
-    @Column(name = "categoria")
+public class Reclamacao {
+    private String id;
     private String categoria;
-    @Column(name = "descricao")
     private String descricao;
-    @Column(name = "curtir")
-    int curtir;
-    @Column(name = "naoCurtir")
-    int naoCurtir;
-    @Column(name = "resolvido")
-    boolean resolvido;
-    @Column(name = "arquivados")
+    private int curtir;
+    private int naoCurtir;
+    private boolean resolvido;
     boolean arquivados;
-    @Column(name = "data")
     private String data;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -48,21 +34,6 @@ public class Reclamacao extends SugarRecord {
 
     }
 
-    public List<Comentario> getAllComentario() {
-        List<Comentario> comentario = Comentario.find(Comentario.class, "reclamacao = ?", getId().toString());
-        return comentario;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    @Column(name = "usuario")
-    String usuario;
 
     public boolean isResolvido() {
         return resolvido;
@@ -72,15 +43,15 @@ public class Reclamacao extends SugarRecord {
         this.resolvido = resolvido;
     }
 
-    public Reclamacao(String categoria, String descricao, String data, int curtir, int naocurtir, String usuario, boolean resolvido, boolean arquivado) {
+    public Reclamacao(String id, String categoria, String descricao, String data, int curtir, int naocurtir, boolean resolvido, boolean arquivado) {
         this.categoria = categoria;
         this.descricao = descricao;
         this.data = data;
         this.curtir = curtir;
         this.naoCurtir = naocurtir;
-        this.usuario = usuario;
         this.resolvido = resolvido;
         this.arquivados = arquivado;
+        this.id = id;
     }
 
 

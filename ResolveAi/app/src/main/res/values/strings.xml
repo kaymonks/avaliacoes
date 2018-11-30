@@ -27,4 +27,7 @@
     <string name="login">Login</string>
     <string name="registrar">Registrar</string>
     <string name="reolveai">reolveai</string>
+    <string name="comentarios">Comentários</string>
+    <string name="descricao">Descrição</string>
+    <string name="nome">Nome</string>
 </resources>

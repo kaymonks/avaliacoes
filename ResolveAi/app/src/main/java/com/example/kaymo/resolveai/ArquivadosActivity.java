@@ -27,8 +27,8 @@ public class ArquivadosActivity extends AppCompatActivity {
         RecyclerView rvLista = findViewById(R.id.rvListaArquivados);
         SugarContext.init(this);
 
-        List<Reclamacao> reclamacoes = Reclamacao.findWithQuery(Reclamacao.class, "SELECT * FROM reclamacoes where arquivados = ? ORDER BY curtir DESC, naocurtir ASC", "1");
-        adapter = new ReclamacaoAdapter(ArquivadosActivity.this, reclamacoes);
+//      List<Reclamacao> reclamacoes = Reclamacao.findWithQuery(Reclamacao.class, "SELECT * FROM reclamacoes where arquivados = ? ORDER BY curtir DESC, naocurtir ASC", "1");
+      //  adapter = new ReclamacaoAdapter(ArquivadosActivity.this, reclamacoes);
         rvLista.setAdapter(adapter);
         rvLista.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
         rvLista.setLayoutManager(new LinearLayoutManager(this));

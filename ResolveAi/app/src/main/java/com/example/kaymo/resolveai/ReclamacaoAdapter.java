@@ -2,12 +2,19 @@ package com.example.kaymo.resolveai;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +27,10 @@ import static android.content.ContentValues.TAG;
 
 class ReclamacaoAdapter extends RecyclerView.Adapter {
     private List<Reclamacao> listaReclamacao;
+    private List<Reclamacao> reclamacoes;
     private Context context;
+    private DatabaseReference databaseReference;
+    private Reclamacao todasReclamacoes;
 
     public ReclamacaoAdapter(Context context, List<Reclamacao> listaReclamacao) {
         this.listaReclamacao = listaReclamacao;
@@ -30,15 +40,35 @@ class ReclamacaoAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View elementoPrincipalXML = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_reclamacao, parent, false);
-        ReclamacaoHolder gaveta = new ReclamacaoHolder(elementoPrincipalXML);
-        return gaveta;
+        return new ReclamacaoHolder(elementoPrincipalXML);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final ReclamacaoHolder gaveta = (ReclamacaoHolder) holder;
         final Reclamacao daVez = this.listaReclamacao.get(position);
-//        Log.d(TAG, "onBindViewHolder: "+String.valueOf(daVez.getCurtir())+String.valueOf(daVez.getCategoria()));
+
+        reclamacoes = new ArrayList<>();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("reclamacao").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                reclamacoes.clear();
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    todasReclamacoes = postSnapshot.getValue(Reclamacao.class);
+                    reclamacoes.add(todasReclamacoes);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        Log.d(TAG, "veridreclamacao: "+daVez.getId());
         gaveta.exibeReclamacao(daVez);
         gaveta.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,8 +80,7 @@ class ReclamacaoAdapter extends RecyclerView.Adapter {
                 intent.putExtra("categoria", daVez.getCategoria());
                 intent.putExtra("data", daVez.getData());
                 intent.putExtra("curtir", daVez.getCurtir());
-                intent.putExtra("naoCurtir", daVez.getNaoCurtir());
-                intent.putExtra("usuario", daVez.getUsuario());
+                intent.putExtra("naoCurtir", daVez. getNaoCurtir());
                 intent.putExtra("resolvido", daVez.isResolvido());
                 context.startActivity(intent);
             }

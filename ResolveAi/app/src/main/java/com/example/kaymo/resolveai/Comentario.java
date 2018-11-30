@@ -1,35 +1,20 @@
 package com.example.kaymo.resolveai;
 
-import com.orm.SugarRecord;
-import com.orm.dsl.Column;
-import com.orm.dsl.Table;
-
-import java.util.List;
-
-@Table(name = "comentarios")
-public class Comentario extends SugarRecord {
-    private Long id;
-    @Column(name = "nome")
+public class Comentario  {
+    private String id;
     private String nome;
-    @Column(name = "descricao")
     private String decricao;
-    @Column(name = "data")
     private String data;
-
-    Long reclamacao;
-    private List<Comentario> comentarios;
-
-    public List<Comentario> getComentarios() {
-        return comentarios;
-    }
+    private String reclamacao;
 
     public Comentario() {}
 
-    public Comentario(String nome, String decricao, String data, Long reclamacao) {
+    public Comentario(String id, String nome, String decricao, String data, String reclamacao) {
         this.nome = nome;
         this.decricao = decricao;
         this.data = data;
         this.reclamacao = reclamacao;
+        this.id = id;
     }
 
     public void setNome(String nome) {
@@ -48,7 +33,7 @@ public class Comentario extends SugarRecord {
         return nome;
     }
 
-    public Long getId() { return id; }
+    public String getId() { return id; }
 
     public String getDecricao() {
         return decricao;
@@ -57,6 +42,10 @@ public class Comentario extends SugarRecord {
     public String getData() {
         return data;
     }
+
+    public String getReclamacao() { return reclamacao; }
+
+    public void setReclamacao(String reclamacao) { this.reclamacao = reclamacao; }
 
 
 }

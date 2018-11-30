@@ -2,8 +2,10 @@ package com.example.kaymo.resolveai;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -27,6 +29,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orm.SugarContext;
@@ -41,19 +50,56 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class ReclamacoesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private final int ADICIONAR_RECLAMACAO_CODE = 1;
     ReclamacaoAdapter adaptador;
-    Reclamacao reclamacao;
+    Reclamacao todasReclamacoes;
     FloatingActionButton btAdicionar;
 
-    @SuppressLint("CutPasteId")
+    DatabaseReference databaseReference;
+    List<Reclamacao> reclamacoes;
+    RecyclerView rvLista;
+    Context context;
+    int qtdReclamacao;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reclamacoes);
+
+        //databaseReference = FirebaseDatabase.getInstance().getReference().child("reclamacoes");
+        //databaseReference.keepSynced(true);
+        rvLista = findViewById(R.id.rvLista);
+        rvLista.setHasFixedSize(true);
+        rvLista.setLayoutManager(new LinearLayoutManager(this));
+        rvLista.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
+        reclamacoes = new ArrayList<>();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("reclamacao").orderByChild("descricao").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    todasReclamacoes = postSnapshot.getValue(Reclamacao.class);
+                    Log.d("TAG", "msg"+todasReclamacoes);
+
+                    reclamacoes.add(todasReclamacoes);
+                }
+
+                adaptador.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        Log.d("TAG", "msg"+reclamacoes);
+        adaptador = new ReclamacaoAdapter(ReclamacoesActivity.this, reclamacoes);
+        rvLista.setAdapter(adaptador);
+
 
                 /* Menu Navigation Drawer*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -81,7 +127,7 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        reclamacao = new Reclamacao();
+
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", MODE_PRIVATE);
         String login = sharedPreferences.getString("username", "null");
         Log.d("TAG", "Nome login nas preferences:"+login);
@@ -89,59 +135,11 @@ public class ReclamacoesActivity extends AppCompatActivity implements Navigation
             hideItem();
         }
         /* //Menu*/
+    }
 
-        final RecyclerView rvLista = findViewById(R.id.rvLista);
-        SugarContext.init( this );
-//        conexaoInternet = new ConexaoInternet(this);
-//        StringRequest request = new StringRequest(
-//                Request.Method.GET,
-//                URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        Log.d("TAG", response.toString());
-//                        GsonBuilder builder = new GsonBuilder();
-//                        Gson gson = builder.create();
-//                        List<Reclamacao> reclamacoes = Arrays.asList(gson.fromJson(response, Reclamacao[].class));
-//                        adaptador = new ReclamacaoAdapter(ReclamacoesActivity.this, reclamacoes);
-//                        rvLista.setAdapter(adaptador);
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.d("TAG", error.getMessage());
-//                        Toast.makeText(ReclamacoesActivity.this, "Alguma coisa deu errado" + error.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//        );
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        requestQueue.add(request);
-
-//            List<Reclamacao> reclamacoes = Reclamacao.listAll(Reclamacao.class);
-        List<Reclamacao> reclamacoes = Reclamacao.findWithQuery(Reclamacao.class, "SELECT * FROM reclamacoes WHERE resolvido = ? AND arquivados = ? ORDER BY curtir DESC, naocurtir ASC", "0", "0");
-        adaptador = new ReclamacaoAdapter(ReclamacoesActivity.this, reclamacoes);
-        rvLista.setAdapter(adaptador);
-
-        rvLista.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
-
-        rvLista.setLayoutManager(new LinearLayoutManager(this));
-
-//        btAdicionar = findViewById(R.id.btAdicionarReclamacoes);
-//
-//        btAdicionar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intencao;
-//                if (getLogin() == "null"){
-//                    intencao = new Intent(getApplication(), LoginActivity.class);
-//                }else {
-//                    intencao = new Intent(getApplication(), ReclamacaoActivity.class);
-//                }
-//
-//                startActivityForResult(intencao, 1);
-//            }
-//        });
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     public void hideItem() {
